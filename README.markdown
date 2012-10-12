@@ -1,3 +1,14 @@
+
+Forked version of ofxOpenNI ( originally by  GameOverHack ) Minor changes by BenMcChesney
+	
+I wanted to create normalized cursor coordinates similar to the middleware iisu by SoftKinetic
+This is achieved by storing the position of a cursor when it's first created and offseting and mapping
+coordinates to something that are easier to work with.
+
+
+
+
+
 OFXOPENNI FOR MAC & WIN
 =======================
 The ofxOpenNI module is a wrapper for the openNI + NITE + SensorKinect libraries/middleware for openFrameworks. 

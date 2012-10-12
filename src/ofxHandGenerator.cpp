@@ -38,6 +38,7 @@ ofxHandGenerator::ofxHandGenerator(){
 	setMinDistBetweenHands(100);
 	setSmoothing(1);
 	setMinTimeBetweenHands(500);
+    
 }
 
 // dtor
@@ -369,11 +370,15 @@ void ofxHandGenerator::newHand(XnUserID nID, const XnPoint3D* pPosition)
 		{
 			hand->isBeingTracked = true;
 			hand->nID = nID;
+            hand->newTrackingPoint(*pPosition) ;
 			hand->update(pPosition, isFiltering, true);
+             
 			found_hands++;
 			// Stop getting gestures?
 			//if (found_hands >= MAX_NUMBER_HANDS)
 			//	this->removeGestures();
+            
+            
 			return;
 		}
 	}

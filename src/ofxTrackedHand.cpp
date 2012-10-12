@@ -59,6 +59,34 @@ ofxTrackedHand::~ofxTrackedHand() {
  // nothing
 }
 
+void ofxTrackedHand::newTrackingPoint ( XnPoint3D pPosition )
+{
+    initialRawPos = pPosition;
+	XnPoint3D rawProj = initialRawPos;
+	depth_generator.ConvertRealWorldToProjective(1, &rawProj, &rawProj);
+    
+   
+    //cout << "initial RAW pos:: " << initialRawPos.X << " , " << initialRawPos.Y << " , " << initialRawPos.Z << endl ;
+    initialProjectPos = ofPoint(rawProj.X, rawProj.Y, rawProj.Z);
+    initialProgPos.x = (projectPos.x / xres);
+    initialProgPos.y = (projectPos.y / yres);
+    initialProgPos.z = (projectPos.z / zres);
+    
+    //cout << "initialProgPos:: " << initialProgPos.x << " , " << initialProgPos.y << " , " << initialProgPos.z << endl ;
+    //cout << "initialProjectPos:: " << initialProjectPos.x << " , " << initialProjectPos.y << " , " << initialProjectPos.z << endl ;
+    
+        
+    
+    progBounds = ofRectangle( initialProgPos.x - .1 , initialProgPos.y - .1 , initialProgPos.x + .1 , initialProgPos.y + .1 ) ;
+    cout << "progBounds " << progBounds.x << " , " << progBounds.y << " , " << progBounds.width << " , " << progBounds.height << endl ;
+    projectBounds = ofRectangle( progBounds.x * xres , progBounds.y * yres , progBounds.width * xres , progBounds.height * yres ) ;
+    
+        cout << "projectBounds " << projectBounds.x << " , " << projectBounds.y << " , " << projectBounds.width << " , " << projectBounds.height << endl ; 
+   
+    
+   }
+
+
 //--------------------------------------------------------------
 // High-pass filter based on iOS Accelerometer sample
 // Filter: 0.01 .. 1.0
@@ -107,6 +135,24 @@ void ofxTrackedHand::draw() {
 	ofFill();
 	ofSetColor(255, 255, 0);
 	ofCircle(projectPos.x, projectPos.y, 15);
+    
+    ofSetLineWidth( 3 ) ;
+    ofNoFill( ) ;
+    //cout << "projectBounds.x " << projectBounds.x << " y " << projectBounds.y << " w : " << projectBounds.width << " h : " << projectBounds.height << endl ;
+    //ofPushMatrix( ) ;
+    //ofTranslate( projectPos.x , projectPos.y ) ;
+    ofRectangle(  50 , 50 , 250 , 250 ) ; //projectBounds.x , projectBounds.y , 300 , 300 ) ; //projectBounds.width , projectBounds.height ) ;
+    //ofPopMatrix( ) ;
+    
+    ofFill ( ) ;
+    ofSetLineWidth(1) ; 
+    //ofSetColor( 0 , 255 , 255 ) ;
+    //ofCircle( initialProgPos.x , initialProgPos.y , 15 ) ;
+    //ofLine ( projectPos.x, projectPos.y , initialProgPos.x , initialProgPos.y ) ;
+    ofSetColor( 0 , 255 , 255 ) ;
+    ofCircle( initialProjectPos.x , initialProjectPos.y , 15 ) ;
+    ofLine ( projectPos.x, projectPos.y , initialProjectPos.x , initialProjectPos.y ) ;
+    
 }
 
 

@@ -52,13 +52,20 @@ public:
 	void update(const XnPoint3D* pPosition, bool filter=false, bool force=false);
 
 	void draw();
-
+    void newTrackingPoint ( XnPoint3D pPosition ) ; 
 	bool				isBeingTracked;
 	XnUserID			nID;
 	XnPoint3D			rawPos;
 	ofPoint				projectPos;		// position on screen
 	ofPoint				progPos;		// position from 0.0 to 1.0
-
+    
+    XnPoint3D           initialRawPos ;    //Initial detection position, used to create a cursor bounding box
+    ofPoint				initialProjectPos;		// position on screen
+	ofPoint				initialProgPos;         // normalized from 0.0 to 1.0
+    
+    ofRectangle         progBounds ;
+    ofRectangle         projectBounds ; 
+    
 	void				setFilterFactor(float factor);
 	float				getFilterFactor();
 
